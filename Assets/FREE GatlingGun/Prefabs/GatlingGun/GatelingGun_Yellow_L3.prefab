@@ -428,8 +428,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1215739270096500}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.466, z: 1.85}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.071202, y: 0.48642, z: 1.4839}
+  m_LocalScale: {x: 0.51386, y: 0.51386, z: 0.51386}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4082950394947920}
@@ -5194,7 +5194,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: c707f1d8ec043614e9e1a46160b254b2, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10035,7 +10034,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15125,7 +15123,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 9e906e7aa630220429430a20fca952a9, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20133,7 +20130,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: cf70051774cc47f41813eb9ec86fa9d4, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20897,6 +20893,10 @@ MonoBehaviour:
   go_baseRotation: {fileID: 4144936528890730}
   go_GunBody: {fileID: 4856386421184550}
   go_barrel: {fileID: 4575810401582574}
+  startShootAudio: {fileID: 0}
+  shootingAudio: {fileID: 0}
+  endShootAudio: {fileID: 0}
+  src: {fileID: 0}
   barrelRotationSpeed: 1000
   firingRange: 10
   muzzelFlash: {fileID: 198562569527715984}
