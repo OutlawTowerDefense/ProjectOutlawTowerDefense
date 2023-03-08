@@ -18,7 +18,7 @@ public class Cube : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Récupérer la position de la souris sur l'écran
+        // Rï¿½cupï¿½rer la position de la souris sur l'ï¿½cran
         Vector3 mousePos = Mouse.current.position.ReadValue();
 
         // Convertir la position de la souris en position dans le monde 3D
@@ -29,10 +29,10 @@ public class Cube : MonoBehaviour
         float newZ = Mathf.Round(worldPos.z - 0.5f) + 0.5f;
         Vector3 centeredPos = new Vector3(newX, transform.position.y, newZ);
 
-        // Calculer la distance entre la position actuelle du cube et la position centrée
+        // Calculer la distance entre la position actuelle du cube et la position centrï¿½e
         float distance = Vector3.Distance(transform.position, centeredPos);
 
-        // Déplacer le cube vers la position centrée dans la grille s'il est assez éloigné
+        // Dï¿½placer le cube vers la position centrï¿½e dans la grille s'il est assez ï¿½loignï¿½
         if (distance > 0.01f)
         {
             StartCoroutine(MoveObj(centeredPos - transform.position));
@@ -48,7 +48,7 @@ public class Cube : MonoBehaviour
         while (nextMove < moveTime)
         {
             transform.position = Vector3.Lerp(startPos, endPos, nextMove / moveTime);
-            nextMove += Time.fixedDeltaTime;
+            nextMove += Time.deltaTime;
             yield return null;
         }
 
