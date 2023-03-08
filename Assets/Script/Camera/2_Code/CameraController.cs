@@ -54,7 +54,7 @@ namespace KaizerWaldCode.RTTCamera
         
         private void Update()
         {
-            if (!isRotating && moveAxis == Vector2.zero && Approximately(zoom, 0)) return;
+            if (!isRotating && !isMoving/*moveAxis == Vector2.zero*/ && Approximately(zoom, 0)) return;
             // Rotation
             Quaternion newRotation = cameraTransform.rotation;
             if (isRotating)
