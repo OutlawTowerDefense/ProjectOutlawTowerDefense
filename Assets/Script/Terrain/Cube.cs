@@ -1,57 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Cube : MonoBehaviour
 {
+    
+    private Camera cameraPlayer;
+   private float speedMovement = 55f;
 
-    private float moveTime = 1f;
-    private Vector3 startPos, endPos;
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
+        cameraPlayer = Camera.main;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        // R�cup�rer la position de la souris sur l'�cran
-        Vector3 mousePos = Mouse.current.position.ReadValue();
-
-        // Convertir la position de la souris en position dans le monde 3D
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.transform.position.y));
-
-        // Centrer la position dans la grille (sur les axes x et z uniquement)
-        float newX = Mathf.Round(worldPos.x - 0.5f) + 0.5f;
-        float newZ = Mathf.Round(worldPos.z - 0.5f) + 0.5f;
-        Vector3 centeredPos = new Vector3(newX, transform.position.y, newZ);
-
-        // Calculer la distance entre la position actuelle du cube et la position centr�e
-        float distance = Vector3.Distance(transform.position, centeredPos);
-
-        // D�placer le cube vers la position centr�e dans la grille s'il est assez �loign�
-        if (distance > 0.01f)
-        {
-            StartCoroutine(MoveObj(centeredPos - transform.position));
-        }
+       MagnetTargetPosition();
     }
 
-    IEnumerator MoveObj(Vector3 dir)
+    
+    private void MagnetTargetPosition()
     {
-        float nextMove = 0f;
-        startPos = transform.position;
-        endPos = startPos + dir;
-
-        while (nextMove < moveTime)
+        Ray ray = cameraPlayer.ScreenPointToRay(Mouse.current.position.ReadValue());
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            transform.position = Vector3.Lerp(startPos, endPos, nextMove / moveTime);
-            nextMove += Time.deltaTime;
-            yield return null;
+            // Centrage sur les axes X et Z
+            float x = Mathf.Floor(hit.point.x) + 0.5f;
+            float z = Mathf.Floor(hit.point.z) + 0.5f;
+            Vector3 targetPosition = new(x, transform.position.y, z);
+            if (Vector3.Distance(transform.position, targetPosition) > 0.01f)
+            {
+                transform.position = Vector3.Lerp(transform.position, targetPosition, speedMovement * Time.deltaTime);
+            }
         }
-
-        transform.position = endPos;
     }
 }

@@ -17,22 +17,25 @@ public class GatlingGun : MonoBehaviour
     public AudioSource src2;
     // Gun barrel rotation
     public float barrelRotationSpeed;
-    float currentRotationSpeed;
 
+    public Transform gunHeadTransform;
+    public float gunHeadRestingHeight = 0.1f;
+    public float restingLerpSpeed = 10.0f;
     // Distance the turret can aim and fire from
     public float firingRange;
 
     // Particle system for the muzzel flash
     public ParticleSystem muzzelFlash;
 
+    private Vector3 position;
+
+    float currentRotationSpeed;  
+
     // Used to start and stop the turret firing
     bool canFire = false;
     bool hasPlayedStart = false;
 
-    public Transform gunHeadTransform;
-    public float gunHeadRestingHeight = 0.1f;
-    public float restingLerpSpeed = 10.0f;
-
+    public Vector3 Position { get => position; set => position = value; }
 
     void Start()
     {
@@ -80,6 +83,8 @@ public class GatlingGun : MonoBehaviour
             canFire = false;
         }
     }
+
+
 
     void AimAndFire()
     {
