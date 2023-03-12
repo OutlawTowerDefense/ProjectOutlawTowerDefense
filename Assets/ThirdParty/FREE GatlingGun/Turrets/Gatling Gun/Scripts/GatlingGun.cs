@@ -35,7 +35,7 @@ public class GatlingGun : MonoBehaviour
     bool canFire = false;
     bool hasPlayedStart = false;
 
-    public Vector3 Position { get => position; set => position = value; }
+    public Vector3 Position { get; set; }
 
     void Start()
     {
@@ -45,7 +45,6 @@ public class GatlingGun : MonoBehaviour
 
     void Update()
     {
-
         AimAndFire();
     }
 

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class gatling_scheme : MonoBehaviour
+public class gatling_blueprint : MonoBehaviour
 {
 
     public GatlingGun gatling;
@@ -30,12 +30,13 @@ public class gatling_scheme : MonoBehaviour
     private void GestionSchemaGatling()
     {
         Ray ray = cameraPlayer.ScreenPointToRay(Mouse.current.position.ReadValue());
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000, 1<<3))
         {
             // Centrage sur les axes X et Z
             float x = Mathf.Floor(hit.point.x) + 0.5f;
             float z = Mathf.Floor(hit.point.z) + 0.5f;
             Vector3 targetPosition = new(x, transform.position.y, z);
+
             if (Vector3.Distance(transform.position, targetPosition) > 0.01f)
             {
                 transform.position = Vector3.Lerp(transform.position, targetPosition, speedMovement * Time.deltaTime);
@@ -59,8 +60,8 @@ public class gatling_scheme : MonoBehaviour
     {
         // Instancie un objet Gatling sur la position du curseur
         GatlingGun newGatling = Instantiate(gatling.gameObject, targetPos, transform.rotation).GetComponent<GatlingGun>();
-        newGatling.transform.Rotate(Vector3.up, 90f);
-        GatlingsList.Add(newGatling);
+        newGatling.transform.Rotate(Vector3.up);
         newGatling.Position = targetPos;
+        GatlingsList.Add(newGatling);        
     }
 }

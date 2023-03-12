@@ -21,7 +21,7 @@ public class Cube : MonoBehaviour
     private void MagnetTargetPosition()
     {
         Ray ray = cameraPlayer.ScreenPointToRay(Mouse.current.position.ReadValue());
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000, 1<<3))
         {
             // Centrage sur les axes X et Z
             float x = Mathf.Floor(hit.point.x) + 0.5f;
