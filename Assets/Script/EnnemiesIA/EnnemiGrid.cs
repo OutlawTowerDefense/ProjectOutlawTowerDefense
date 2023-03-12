@@ -31,7 +31,7 @@ public class EnnemiGrid : MonoBehaviour
     private Vector3[] grid;
     public int[] debugIntegrationField;
     public byte[] debugCostField;
-    private bool[] obstacleGrid;
+    private bool[] turretGrid;
     
     //CostField
     //private NativeArray<bool> nativeObstacles;
@@ -76,8 +76,9 @@ public class EnnemiGrid : MonoBehaviour
     {
         totalCells = totalCells == 0 ? (int)(terrainTransform.localScale.x * terrainTransform.localScale.y) : totalCells;
         grid = new Vector3[totalCells];
-        obstacleGrid = new bool[totalCells];
+        turretGrid = new bool[totalCells];
         Vector3 offset = new Vector3(gridWidth/2f,0,gridHeight/2f);
+        
         for (int i = 0; i < totalCells; i++)
         {
             float2 cellCoord = GridUtils.GetXY2(i, gridWidth) + new float2(0.5f);
@@ -88,7 +89,7 @@ public class EnnemiGrid : MonoBehaviour
     private void CalculateFlowField()
     {
         NativeArray<bool> nativeObstacles = new (totalCells, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
-        nativeObstacles.CopyFrom(obstacleGrid);
+        nativeObstacles.CopyFrom(turretGrid);
         
         //Cost Field
         NativeArray<byte> nativeCostField = new (totalCells, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
@@ -140,7 +141,7 @@ public class EnnemiGrid : MonoBehaviour
         const float radius = 0.5f;
         for (int i = 0; i < totalCells; i++)
         {
-            obstacleGrid[i] = Physics.CheckSphere(grid[i],radius,1 << 6);
+            turretGrid[i] = Physics.CheckSphere(grid[i],radius,1 << 6);
         }
     }
     
@@ -160,12 +161,12 @@ public class EnnemiGrid : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (!GizmosDebug) return;
-        if (grid == null || destinationIndex == -1 || startIndex == -1 || obstacleGrid == null) return;
+        if (grid == null || destinationIndex == -1 || startIndex == -1 || turretGrid == null) return;
         Gizmos.color = Color.green;
         for (int i = 0; i < grid.Length; i++)
         {
             Gizmos.DrawWireSphere(grid[i], 0.3f);
-            if (!obstacleGrid[i]) continue;
+            if (!turretGrid[i]) continue;
             Gizmos.DrawCube(grid[i], Vector3.one);
         }
         Gizmos.color = Color.magenta;
