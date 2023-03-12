@@ -35,8 +35,6 @@ public class GatlingGun : MonoBehaviour
     bool canFire = false;
     bool hasPlayedStart = false;
 
-    public Vector3 Position { get; set; }
-
     void Start()
     {
         // Set the firing range distance

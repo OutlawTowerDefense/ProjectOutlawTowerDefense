@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,16 +6,19 @@ public class gatling_blueprint : MonoBehaviour
 {
 
     public GatlingGun gatling;
+    private GatlingGun blueprint;
 
     private Camera cameraPlayer;
     private float speedMovement = 55f;
     private List<GatlingGun> gatlingsList;
 
-    public List<GatlingGun> GatlingsList { get => gatlingsList; set => gatlingsList = value; }
-
     private void Start()
     {
+
         cameraPlayer = Camera.main;
+        GetComponentInChildren<GatlingGun>().enabled = false;
+        
+       
     }
 
     private void Update()
@@ -30,6 +30,7 @@ public class gatling_blueprint : MonoBehaviour
     private void GestionSchemaGatling()
     {
         Ray ray = cameraPlayer.ScreenPointToRay(Mouse.current.position.ReadValue());
+
         if (Physics.Raycast(ray, out RaycastHit hit, 1000, 1<<3))
         {
             // Centrage sur les axes X et Z
@@ -59,9 +60,11 @@ public class gatling_blueprint : MonoBehaviour
     private void CreationInstance(Vector3 targetPos, Transform transform)
     {
         // Instancie un objet Gatling sur la position du curseur
-        GatlingGun newGatling = Instantiate(gatling.gameObject, targetPos, transform.rotation).GetComponent<GatlingGun>();
-        newGatling.transform.Rotate(Vector3.up);
-        newGatling.Position = targetPos;
-        GatlingsList.Add(newGatling);        
+        GameObject newGatling = Instantiate(gatling.gameObject, targetPos, transform.rotation);
+
+        newGatling.transform.Rotate(Vector3.up);   
+        
+        gatlingsList.Add(newGatling.GetComponent<GatlingGun>());
+        newGatling.transform.position = targetPos;
     }
 }
